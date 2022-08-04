@@ -48,7 +48,7 @@ pipeline {
         
         stage('Docker deploy'){
             steps {
-                sh 'sudo docker run -itd -p 8081:8080 vageesh7795/docker_jenkins_pipeline'
+                sh 'sudo docker run -itd -p 8081:8080 vageesh7795/docker_jenkins_pipeline:${BUILD_NUMBER}'
             }
         }
 
