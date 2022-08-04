@@ -28,7 +28,7 @@ pipeline {
 
         stage('Build Docker image'){
             steps {
-                sh 'docker build -t vageesh7795/docker_jenkins_pipeline:${BUILD_NUMBER} .'
+                sh 'sudo docker build -t vageesh7795/docker_jenkins_pipeline:${BUILD_NUMBER} .'
             }
         }
 
@@ -36,20 +36,20 @@ pipeline {
             
             steps {
                  withCredentials([string(credentialsId: 'DockerId', variable: 'Dockerpwd')]) {
-                    sh "docker login -u vageesh7795 -p ${Dockerpwd}"
+                    sh "sudo docker login -u vageesh7795 -p ${Dockerpwd}"
                 }
             }                
         }
 
         stage('Docker Push'){
             steps {
-                sh 'docker push vageesh7795/docker_jenkins_pipeline:${BUILD_NUMBER}'
+                sh 'sudo docker push vageesh7795/docker_jenkins_pipeline:${BUILD_NUMBER}'
             }
         }
         
         stage('Docker deploy'){
             steps {
-                sh 'docker run -itd -p 8081:8080 vageesh7795/springboot:0.0.3'
+                sh 'sudo docker run -itd -p 8081:8080 vageesh7795/springboot:0.0.3'
             }
         }
 
