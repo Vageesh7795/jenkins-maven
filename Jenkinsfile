@@ -35,7 +35,7 @@ pipeline {
         stage('Docker Login'){
             steps {
                {
-                    sh "sudo docker login -u vageesh7795 -p Vageesh7795"
+                    sh "sudo docker login -u vageesh7795 -p Vageesh@12"
                 }
             }                
         }
