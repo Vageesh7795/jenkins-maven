@@ -25,10 +25,30 @@ pipeline {
             }
         }
 
-        
-        stage('tomcat deploy'){
+
+        stage('Build Docker image'){
             steps {
-              deploy adapters: [tomcat8(credentialsId: 'admin', path: '', url: 'http://13.235.133.76:8083')], contextPath: null, war: '**/*.war'
+                sh 'sudo docker build -t vageesh7795/docker_jenkins_pipeline:${BUILD_NUMBER} .'
+            }
+        }
+
+        stage('Docker Login'){
+            
+            steps {
+                
+                    sh 'sudo docker login -u vageesh7795 -p Vageesh@12'
+            }                
+        }
+
+        stage('Docker Push'){
+            steps {
+                sh 'sudo docker push vageesh7795/docker_jenkins_pipeline:${BUILD_NUMBER}'
+            }
+        }
+        
+        stage('Docker deploy'){
+            steps {
+                sh 'sudo docker run -itd -p 8081:8080 vageesh7795/docker_jenkins_pipeline:${BUILD_NUMBER}'
             }
         }
 
